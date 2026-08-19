@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 interface Switch{           // interface is a collection of abstract methods
-    //100% abstarction
+    //100% abstraction
     void on(); // by default public and abstract
     void off();
 }
-class fan implements Switch{     //use implemets to abstarct class and for normal class use extends
+class fan implements Switch{     //use implements to abstract class and for normal class use extends
     @Override
     public void on() {
         System.out.println("Fan is on");
