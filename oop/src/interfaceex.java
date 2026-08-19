@@ -42,7 +42,7 @@ class both implements Switch{
 }
 
 public class interfaceex {
-    Switch press(char op) {
+    Switch press(char op) { //  used to obtain user option and switch between the classes
 
         if (op == 'f')
             return new fan();
@@ -57,11 +57,11 @@ public class interfaceex {
     public static void main(String[] args) {
         //Switch ss = new fan(); // assign subclass object to super class reference variable
       Scanner sc=new Scanner(System.in);
-      System.out.print("Enter your choice (f for fan, l for light, b for both): ");
+      System.out.print("Enter your choice (f for fan, l for light, b for both): "); //user input to choose the class
       char choice = sc.next().charAt(0);
       interfaceex ab=new interfaceex();
       Switch option=ab.press(choice);
-      System.out.print("Enter your choice (o for on and f for off): ");
+      System.out.print("Enter your choice (o for on and f for off): ");// user input to choose the option to perform i,e choose the method to perform
       char opt = sc.next().charAt(0);
       if (opt=='o')
       option.on();
