@@ -1,4 +1,5 @@
-    class Employee{
+
+class Employee{
         int eid; // instance variable or global variable
         String ename;
         void printEmpDet() {
@@ -9,9 +10,15 @@
     class Student{
         int sid;
         String sname;
+
+        Student(int id, String name) {
+            sid = id;
+            sname = name;
+        }
         void printStuDet() {
             System.out.println(sid);
             System.out.println(sname);
+
         }
     }
     class Demo{
@@ -31,10 +38,13 @@
             emp.ename = "John Doe";
             emp.printEmpDet();
 
-            Student stu = new Student();
-            stu.sid = 201;
-            stu.sname = "Jane Smith";
+            Student stu = new Student(201,"jane Smith");
+            //stu.sid = 201;
+            //stu.sname = "Jane Smith";
             stu.printStuDet();
+            // by using constructor we can pass multiple parameter to the constructor
+            // without wrting multiple line of assignemnt using the object
+
 
             //Demo d2 = new Demo(); //object needed but no need of method call
             Demo d1 = new Demo(42); // or new Demo();
