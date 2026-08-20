@@ -247,7 +247,7 @@ public class nestedloops {
         nestedloops a =new nestedloops();
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter choice (1–13): ");
+        System.out.print("Enter choice (1–14): ");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
