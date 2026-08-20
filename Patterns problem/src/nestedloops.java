@@ -24,14 +24,15 @@ public class nestedloops {
     -------
     */
 
-    void q2(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
+    void q2() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
                 System.out.print(i);
             }
             System.out.println();
         }
     }
+
     /*
     11111
     22222
@@ -39,14 +40,15 @@ public class nestedloops {
     44444
     55555
     */
-    void q3(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
+    void q3() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
                 System.out.print(j);
             }
             System.out.println();
         }
     }
+
     /*
     12345
     12345
@@ -54,9 +56,9 @@ public class nestedloops {
     12345
     12345
      */
-    void q4(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=i;j++){
+    void q4() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= i; j++) {
                 System.out.print(i);
             }
             System.out.println();
@@ -70,14 +72,15 @@ public class nestedloops {
     55555
     */
 
-    void q5(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=i;j++){
+    void q5() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= i; j++) {
                 System.out.print(j);
             }
             System.out.println();
         }
     }
+
     /*
     1
     12
@@ -85,41 +88,24 @@ public class nestedloops {
     1234
     12345
      */
-    void q6(){
-        for (int i=5;i>=1;i-=2){
-            for(int j=i;j>=1;j--){
+    void q6() {
+        for (int i = 5; i >= 1; i -= 2) {
+            for (int j = i; j >= 1; j--) {
                 System.out.print(i);
             }
             System.out.println();
         }
     }
+
     /*
     55555
     333
     1
      */
-    void q7(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
-                if(i%2==0)
-                     System.out.print("@");
-                else
-                    System.out.print("#");
-            }
-            System.out.println();
-        }
-    }
-    /*
-    #####
-    @@@@@
-    #####
-    @@@@@
-    #####
-     */
-    void q8(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
-                if(j%2==0)
+    void q7() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
+                if (i % 2 == 0)
                     System.out.print("@");
                 else
                     System.out.print("#");
@@ -127,6 +113,26 @@ public class nestedloops {
             System.out.println();
         }
     }
+
+    /*
+    #####
+    @@@@@
+    #####
+    @@@@@
+    #####
+     */
+    void q8() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
+                if (j % 2 == 0)
+                    System.out.print("@");
+                else
+                    System.out.print("#");
+            }
+            System.out.println();
+        }
+    }
+
     /*
     #@#@#
     #@#@#
@@ -134,30 +140,32 @@ public class nestedloops {
     #@#@#
     #@#@#
      */
-    void q9(){
-        int k=1;
-        for (int i=1;i<=4;i++){
-            for(int j=1;j<=i;j++){
+    void q9() {
+        int k = 1;
+        for (int i = 1; i <= 4; i++) {
+            for (int j = 1; j <= i; j++) {
                 System.out.print(k);
                 k++;
             }
             System.out.println();
         }
     }
+
     /*
     1
     23
     456
     78910
      */
-    void q10(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
+    void q10() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
                 System.out.print("*");
             }
             System.out.println();
         }
     }
+
     /*
      *****
      *****
@@ -165,10 +173,10 @@ public class nestedloops {
      *****
      *****
      */
-    void q11(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
-                if(i==1||i==5||j==1||j==5)
+    void q11() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
+                if (i == 1 || i == 5 || j == 1 || j == 5)
                     System.out.print("*");
                 else
                     System.out.print(" ");
@@ -184,12 +192,33 @@ public class nestedloops {
      *****
      */
 
-    void q12(){
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
-                if(i==j)
+    void q12() {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
+                if (i == j)
                     System.out.print("*");
                 else
+                    System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     *
+     *
+     *
+     *
+     */
+    void q13() {
+        int k = 5;
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
+                if (k == j) {
+                    System.out.print("*");
+                    k--;
+                } else
                     System.out.print(" ");
             }
             System.out.println();
@@ -197,40 +226,18 @@ public class nestedloops {
     }
     /*
      *
-      *
-       *
-        *
-         *
-     */
-    void q13(){
-        int k=5;
-        for (int i=1;i<=5;i++){
-            for(int j=1;j<=5;j++){
-                if(k==j){
-                    System.out.print("*");
-                    k--;}
-                else
-                    System.out.print(" ");
-            }
-            System.out.println();
-        }
-    }
-    /*
-         *
-        *
-       *
-      *
+     *
+     *
+     *
      *
      */
 
-    void q14(){
-        int sp=2;
-        for (int i=1;i<=5;i+=2)
-        {
-            for (int s=1;s<=sp;s++)
+    void q14() {
+        int sp = 2;
+        for (int i = 1; i <= 5; i += 2) {
+            for (int s = 1; s <= sp; s++)
                 System.out.print(" ");
-            for(int j=1;j<=i;j++)
-            {
+            for (int j = 1; j <= i; j++) {
                 System.out.print("*");
             }
             System.out.println();
@@ -239,15 +246,38 @@ public class nestedloops {
     }
 
     /*
-       *
-      ***
+     *
+     ***
      *****
      */
-    public static void main(String[] args){
-        nestedloops a =new nestedloops();
+
+
+    void q15() {
+        int sp = 4;
+        for (int i = 1; i <= 5; i++) {
+            for (int s = 1; s <= sp; s++)
+                System.out.print(" ");
+            for (int j = 1; j <= i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+            sp--;
+        }
+    }
+    /*
+     *
+     **
+     ***
+     ****
+     *****
+     */
+
+
+    public static void main(String[] args) {
+        nestedloops a = new nestedloops();
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter choice (1–14): ");
+        System.out.print("Enter choice (1–15): ");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
@@ -291,6 +321,9 @@ public class nestedloops {
                 break;
             case 14:
                 a.q14();
+                break;
+            case 15:
+                a.q15();
                 break;
             default:
                 System.out.println("Invalid choice");
