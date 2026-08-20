@@ -7,14 +7,14 @@
 
 class bookDetails{
     void bookDet(){
-        System.out.print("book details");
-        System.out.print("--------------");
+        System.out.println("book details");
+        System.out.println("--------------");
     }
     void bookDet(int rate){
-        System.out.print("Book Rate is "+rate);
+        System.out.println("Book Rate is "+rate);
     }
     void bookDet(String auth){
-        System.out.print("Book Author name is "+auth);
+        System.out.println("Book Author name is "+auth);
     }
 }
 
@@ -22,19 +22,19 @@ class bookDetails{
 // this show over-loading
 class javaBook extends bookDetails{
     void bookDet(){
-        System.out.print(" java book details");
-        System.out.print("--------------");
+        System.out.println("java book details");
+        System.out.println("--------------");
     }
     void bookDet(int rate){
         //super.bookDet(340);
         // this will allow to access the super class method
-        System.out.print(" java Book Rate is "+rate);
+        System.out.println("java Book Rate is "+rate);
     }
     void bookDet(String auth){
-        System.out.print("java Book Author name is "+auth);
+        System.out.println("java Book Author name is "+auth);
     }
 }
-//the above class is inherited from the super class and have same named and parametered methods
+//the above class is inherited from the super class and have same named and parameter of  methods
 //this shows over-riding
 public class polymorphism {
     public static void main(String[] args) {
