@@ -9,6 +9,20 @@ public class nestedloops {
             System.out.println("-------");
         }
     }
+    /*
+    1 1
+    1 2
+    1 3
+    -------
+    2 1
+    2 2
+    2 3
+    -------
+    3 1
+    3 2
+    3 3
+    -------
+    */
 
     void q2(){
         for (int i=1;i<=5;i++){
@@ -18,6 +32,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    11111
+    22222
+    33333
+    44444
+    55555
+    */
     void q3(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=5;j++){
@@ -26,6 +47,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    12345
+    12345
+    12345
+    12345
+    12345
+     */
     void q4(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=i;j++){
@@ -34,6 +62,14 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    1
+    22
+    333
+    4444
+    55555
+    */
+
     void q5(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=i;j++){
@@ -42,6 +78,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    1
+    12
+    123
+    1234
+    12345
+     */
     void q6(){
         for (int i=5;i>=1;i-=2){
             for(int j=i;j>=1;j--){
@@ -50,6 +93,11 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    55555
+    333
+    1
+     */
     void q7(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=5;j++){
@@ -61,6 +109,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    #####
+    @@@@@
+    #####
+    @@@@@
+    #####
+     */
     void q8(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=5;j++){
@@ -72,16 +127,29 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+    #@#@#
+    #@#@#
+    #@#@#
+    #@#@#
+    #@#@#
+     */
     void q9(){
         int k=1;
         for (int i=1;i<=4;i++){
-            for(int j=1;j<=4;j++){
+            for(int j=1;j<=i;j++){
                 System.out.print(k);
                 k++;
             }
             System.out.println();
         }
     }
+    /*
+    1
+    23
+    456
+    78910
+     */
     void q10(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=5;j++){
@@ -90,6 +158,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+     *****
+     *****
+     *****
+     *****
+     *****
+     */
     void q11(){
         for (int i=1;i<=5;i++){
             for(int j=1;j<=5;j++){
@@ -101,6 +176,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+     *****
+     *   *
+     *   *
+     *   *
+     *****
+     */
 
     void q12(){
         for (int i=1;i<=5;i++){
@@ -113,6 +195,13 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+     *
+      *
+       *
+        *
+         *
+     */
     void q13(){
         int k=5;
         for (int i=1;i<=5;i++){
@@ -126,12 +215,39 @@ public class nestedloops {
             System.out.println();
         }
     }
+    /*
+         *
+        *
+       *
+      *
+     *
+     */
 
+    void q14(){
+        int sp=2;
+        for (int i=1;i<=5;i+=2)
+        {
+            for (int s=1;s<=sp;s++)
+                System.out.print(" ");
+            for(int j=1;j<=i;j++)
+            {
+                System.out.print("*");
+            }
+            System.out.println();
+            sp--;
+        }
+    }
+
+    /*
+       *
+      ***
+     *****
+     */
     public static void main(String[] args){
         nestedloops a =new nestedloops();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter choice (1–13): ");
+        System.out.print("Enter choice (1–13): ");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
@@ -172,6 +288,9 @@ public class nestedloops {
                 break;
             case 13:
                 a.q13();
+                break;
+            case 14:
+                a.q14();
                 break;
             default:
                 System.out.println("Invalid choice");
