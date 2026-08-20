@@ -206,10 +206,10 @@ public class nestedloops {
 
     /*
      *
-     *
-     *
-     *
-     *
+      *
+       *
+        *
+         *
      */
     void q13() {
         int k = 5;
@@ -225,10 +225,10 @@ public class nestedloops {
         }
     }
     /*
-     *
-     *
-     *
-     *
+         *
+        *
+       *
+      *
      *
      */
 
@@ -246,8 +246,8 @@ public class nestedloops {
     }
 
     /*
-     *
-     ***
+       *
+      ***
      *****
      */
 
