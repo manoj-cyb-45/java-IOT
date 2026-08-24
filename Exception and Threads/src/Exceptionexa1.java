@@ -1,5 +1,5 @@
 
-public class Expeptionexa1 {
+public class Exceptionexa1 {
     public static void main(String []args){
         System.out.println(12/2); // no error
         System.out.println(12/0); // error occurs
@@ -15,5 +15,11 @@ public class Expeptionexa1 {
         // * after the error occur the code continue to execute normally
         // finally is the block where it will executed even when try catch works or skipped
 
+        /*
+        TYPES
+        1. ArithmeticException
+        2. ArrayIndexOutOfBoundsException
+        3. NullPointerException
+         */
     }
 }
