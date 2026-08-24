@@ -1,7 +1,7 @@
 public class MultiThread3  extends Thread{
 
     int num; // globel varibale
-    MultiThread3(int i){ // constructor  this is used to assign the passed value to the global variable so we can print it inside the run method
+    MultiThread3(int i){ // constructor , is used to assign the passed value to the global variable so we can print it inside the run method
         num=i;
     }
     public void run(){   // we cant pass the parameter to the run method directly
