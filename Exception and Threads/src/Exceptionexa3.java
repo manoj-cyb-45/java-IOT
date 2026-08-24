@@ -6,7 +6,7 @@ public class Exceptionexa3 {
         catch (ArithmeticException e){
             System.out.println(e);
         }
-        int a=11,b=22; // continue because of execution
+        int a=11,b=22;
         int c=a+b;
         System.out.println(c);
     }

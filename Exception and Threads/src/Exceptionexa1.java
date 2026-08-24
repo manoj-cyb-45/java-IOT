@@ -1,6 +1,14 @@
 
 public class Exceptionexa1 {
     public static void main(String []args){
+        String name=null;
+        try{
+            System.out.println(name.length());
+        }
+        catch(NullPointerException e){
+            System.out.println(e);
+        }
+
         System.out.println(12/2); // no error
         System.out.println(12/0); // error occurs
         //runtime expection (ArithmeticException)
