@@ -29,9 +29,9 @@ public class Pairsum {
      */
     static boolean optimized1(int[] arr, int k) {
         int sum = arr[0] + arr[1]; // first pair
-        for (int i = 1; i < arr.length - 1; i++) {
-            sum -= arr[i - 1];
-            sum += arr[i + 1];
+        for (int cur = 1; cur < arr.length - 1; cur++) {
+            sum -= arr[cur - 1];
+            sum += arr[cur + 1];
             if (sum == k) {
                 return true;
             }
@@ -46,15 +46,15 @@ public class Pairsum {
      * Time Complexity: O(N)
      */
     static boolean optimized2(int[] arr, int k) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            int sum = arr[i] + arr[j];
+        int left = 0, right = arr.length - 1;
+        while (left < right) {
+            int sum = arr[left] + arr[right];
             if (sum == k) {
                 return true;
             } else if (sum > k) {
-                j--; // decrease sum
+                right--; // decrease sum
             } else {
-                i++; // increase sum
+                left++; // increase sum
             }
         }
         return false;
