@@ -2,7 +2,7 @@
  * Finds the maximum sum of any subarray of length k.
  * Demonstrates both brute force and optimized sliding window approaches.
  */
-class BruteForce1 {
+class BruteForce {
     /**
      * Method 1: Uses two pointers (s, e) to define a window
      * and calculates sum for each subarray of length k.
@@ -75,7 +75,7 @@ public class MaxSubarraySum {
         int[] arr = {1, 2, 3, 4, 5};
         int k = 3;
 
-        BruteForce1 b1 = new BruteForce1();
+        BruteForce b1 = new BruteForce();
         System.out.println(b1.method1(arr, k)); // Output: 12
         System.out.println(b1.method2(arr, k)); // Output: 12
 
