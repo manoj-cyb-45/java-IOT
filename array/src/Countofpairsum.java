@@ -1,6 +1,7 @@
 /**
  * Class to count how many pairs exist in an array
  * whose sum equals a given target k.
+ * no duplicate elements allowed in array
  * Demonstrates brute force and optimized approaches.
  */
 public class Countofpairsum {
