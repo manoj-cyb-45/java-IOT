@@ -22,6 +22,7 @@ public class Pairsum {
     }
 
     /**
+     * make sure that array must be sorted
      * Attempted sliding window approach.
      * Only works correctly for consecutive pairs.
      * Time Complexity: O(N)
@@ -41,6 +42,7 @@ public class Pairsum {
     /**
      * Two-pointer approach (requires sorted array).
      * Moves pointers inward based on sum comparison.
+     * array must be sorted
      * Time Complexity: O(N)
      */
     static boolean optimized2(int[] arr, int k) {
