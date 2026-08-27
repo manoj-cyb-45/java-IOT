@@ -16,6 +16,7 @@ public class Stringexm2 {
         char[] ch = str.toCharArray();
 
         // Method 1: Using Character class
+
         System.out.print("Toggled (Character methods): ");
         for (char c1 : ch) {
             if (Character.isUpperCase(c1)) {
