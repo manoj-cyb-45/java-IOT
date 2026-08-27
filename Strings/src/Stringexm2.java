@@ -2,9 +2,10 @@ import java.util.Scanner;
 
 /**
  * Demonstrates toggling the case of characters in a string.
- * Shows two approaches:
+ * Shows three approaches:
  * 1. Using Character class methods.
  * 2. Using ASCII values directly.
+ * 3. Using charAt() in a loop.
  */
 public class Stringexm2 {
     public static void main(String[] args) {
@@ -39,6 +40,23 @@ public class Stringexm2 {
                 System.out.print((char) (c2 - 32));
             } else {
                 System.out.print(c2);
+            }
+        }
+
+        System.out.println();
+
+        //-----------------------------------//
+
+        // Method 3: Using charAt() directly
+        System.out.print("Toggled (charAt loop): ");
+        for (int i = 0; i < str.length(); i++) {
+            char ch3 = str.charAt(i);
+            if (ch3 >= 'a' && ch3 <= 'z') {
+                System.out.print((char) (ch3 - 32));
+            } else if (ch3 >= 'A' && ch3 <= 'Z') {
+                System.out.print((char) (ch3 + 32));
+            } else {
+                System.out.print(ch3);
             }
         }
     }
