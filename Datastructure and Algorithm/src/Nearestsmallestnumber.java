@@ -2,11 +2,7 @@ import java.util.Stack;
 
 public class Nearestsmallestnumber {
 
-    /**
-     * Brute force approach: O(n^2)
-     * For each element, scan left until a smaller element is found.
-     * If none found, assign -1.
-     */
+    // Brute force approach: O(n^2)
     static int[] bruteforce(int[] arr){
         int[] result = new int[arr.length];
 
@@ -21,43 +17,34 @@ public class Nearestsmallestnumber {
                     break;
                 }
             }
-            result[i] = ans;       // store answer
+            result[i] = ans;
         }
         return result;
     }
 
-    /**
-     * Optimized approach using stack (logic as written in your code).
-     * Pushes current element, then pops it immediately.
-     */
+    // Optimized approach using stack: O(n)
     static int[] optimized(int[] arr){
         Stack<Integer> stk = new Stack<>();
         int[] result = new int[arr.length];
 
         for(int i=0; i<arr.length; i++){
             int cur = arr[i];
-            stk.push(cur);
 
-            if(stk.isEmpty()){
-                result[i] = -1;
+            // Pop until stack top is smaller
+            while(!stk.isEmpty() && stk.peek() >= cur){
+                stk.pop();
             }
-            else{
-                int temp = stk.pop(); // pops current element
-                result[i] = temp;     // assigns it back
-            }
+
+            // If stack empty → no smaller element
+            result[i] = stk.isEmpty() ? -1 : stk.peek();
+
+            // Push current element for future comparisons
+            stk.push(cur);
         }
         return result;
     }
 
-    /**
-     * Main method:
-     * - Defines input array
-     * - Runs both brute force and optimized methods
-     * - Prints original array
-     * - Prints results from both approaches
-     */
     public static void main(String []args){
-        // Input array
         int[] arr = {5,8,11,14,7,10,13,6,9,10,2,5};
 
         // Run both methods
@@ -70,15 +57,15 @@ public class Nearestsmallestnumber {
         }
 
         // Print brute force results
-        System.out.println("Bruteforce solution :");
+        System.out.println("\nBruteforce solution :");
         for(int i=0; i<result.length; i++){
             System.out.println(arr[i]+" -> "+result[i]);
         }
 
         // Print optimized results
-        System.out.println("optimized solution :");
-        for(int i=0; i<result.length; i++) {
-            System.out.println(arr[i] + " -> " + result[i]);
+        System.out.println("Optimized solution :");
+        for(int i=0; i<result1.length; i++){
+            System.out.println(arr[i]+" -> "+result1[i]);
         }
     }
 }
