@@ -1,6 +1,7 @@
 package detective;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Case {
 
@@ -17,6 +18,9 @@ public class Case {
     private ArrayList<Evidence> evidenceList;
     private ArrayList<TimelineEvent> timeline;
     private ArrayList<Location> locations;
+
+    private HashMap<Integer, Suspect> suspectMap;
+
     public Case(int caseId, String caseTitle, String crimeType,
                 String crimeLocation, String crimeTime) {
 
@@ -31,12 +35,8 @@ public class Case {
         evidenceList = new ArrayList<>();
         timeline = new ArrayList<>();
         locations = new ArrayList<>();
-    }
-    public void addLocation(Location location) {
-        locations.add(location);
-    }
-    public ArrayList<Location> getLocations() {
-        return locations;
+
+        suspectMap = new HashMap<>();
     }
 
     public void setVictim(Victim victim) {
@@ -44,7 +44,9 @@ public class Case {
     }
 
     public void addSuspect(Suspect suspect) {
+
         suspects.add(suspect);
+        suspectMap.put(suspect.getId(), suspect);
     }
 
     public void addWitness(Witness witness) {
@@ -57,6 +59,42 @@ public class Case {
 
     public void addTimelineEvent(TimelineEvent event) {
         timeline.add(event);
+    }
+
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+
+    public Suspect findSuspectById(int id) {
+        return suspectMap.get(id);
+    }
+
+    public Evidence findEvidenceById(int id) {
+
+        for (Evidence evidence : evidenceList) {
+
+            if (evidence.getEvidenceId() == id) {
+                return evidence;
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Suspect> getSuspects() {
+        return suspects;
+    }
+
+    public ArrayList<Witness> getWitnesses() {
+        return witnesses;
+    }
+
+    public ArrayList<Evidence> getEvidenceList() {
+        return evidenceList;
+    }
+
+    public ArrayList<Location> getLocations() {
+        return locations;
     }
 
     public void displayCaseDetails() {
@@ -78,8 +116,11 @@ public class Case {
         System.out.println("\n----------- SUSPECTS -----------");
 
         if (suspects.isEmpty()) {
+
             System.out.println("No suspects added.");
+
         } else {
+
             for (Suspect suspect : suspects) {
                 suspect.displayDetails();
             }
@@ -88,8 +129,11 @@ public class Case {
         System.out.println("\n----------- WITNESSES -----------");
 
         if (witnesses.isEmpty()) {
+
             System.out.println("No witnesses added.");
+
         } else {
+
             for (Witness witness : witnesses) {
                 witness.displayDetails();
             }
@@ -98,8 +142,11 @@ public class Case {
         System.out.println("\n----------- EVIDENCE -----------");
 
         if (evidenceList.isEmpty()) {
+
             System.out.println("No evidence collected.");
+
         } else {
+
             for (Evidence evidence : evidenceList) {
                 evidence.displayDetails();
             }
@@ -115,6 +162,7 @@ public class Case {
         System.out.println("========================================");
 
         if (timeline.isEmpty()) {
+
             System.out.println("No timeline events available.");
             return;
         }
@@ -133,6 +181,7 @@ public class Case {
         System.out.println("========================================");
 
         if (evidenceList.isEmpty()) {
+
             System.out.println("No evidence has been collected.");
             return;
         }
@@ -147,36 +196,5 @@ public class Case {
         }
 
         System.out.println("========================================");
-    }
-    public Suspect findSuspectById(int id) {
-
-        for (Suspect suspect : suspects) {
-
-            if (suspect.getId() == id) {
-                return suspect;
-            }
-        }
-
-        return null;
-    }
-    public ArrayList<Suspect> getSuspects() {
-        return suspects;
-    }
-    public ArrayList<Evidence> getEvidenceList() {
-        return evidenceList;
-    }
-    public ArrayList<Witness> getWitnesses() {
-        return witnesses;
-    }
-    public Evidence findEvidenceById(int id) {
-
-        for (Evidence evidence : evidenceList) {
-
-            if (evidence.getEvidenceId() == id) {
-                return evidence;
-            }
-        }
-
-        return null;
     }
 }

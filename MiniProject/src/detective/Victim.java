@@ -7,6 +7,7 @@ public class Victim {
     private String occupation;
 
     public Victim(String name, int age, String occupation) {
+
         this.name = name;
         this.age = age;
         this.occupation = occupation;

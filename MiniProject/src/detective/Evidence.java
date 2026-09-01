@@ -22,9 +22,6 @@ public class Evidence {
         this.reliable = reliable;
         this.relatedSuspectId = relatedSuspectId;
     }
-    public int getRelatedSuspectId() {
-        return relatedSuspectId;
-    }
 
     public void displayDetails() {
 
@@ -34,7 +31,10 @@ public class Evidence {
         System.out.println("Type        : " + type);
         System.out.println("Description : " + description);
         System.out.println("Found At    : " + foundAt);
-        System.out.println("Reliability : " + (reliable ? "Reliable" : "Questionable"));
+        System.out.println(
+                "Reliability : "
+                        + (reliable ? "Reliable" : "Questionable")
+        );
     }
 
     public int getEvidenceId() {
@@ -59,5 +59,9 @@ public class Evidence {
 
     public boolean isReliable() {
         return reliable;
+    }
+
+    public int getRelatedSuspectId() {
+        return relatedSuspectId;
     }
 }

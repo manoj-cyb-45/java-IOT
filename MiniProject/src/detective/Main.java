@@ -12,12 +12,14 @@ public class Main {
                 "10:30 PM"
         );
 
+        // Victim
         Victim victim = new Victim(
                 "Jonathan Reed",
                 45,
                 "Businessman"
         );
 
+        // Suspects
         Suspect suspect1 = new Suspect(
                 1,
                 "Daniel Carter",
@@ -38,18 +40,23 @@ public class Main {
                 40
         );
 
+        // Witness
         Witness witness1 = new Witness(
                 1,
                 "Thomas Brown",
                 "I saw someone leaving the library.",
-                "Blackwood Manor Library",
+                "Library",
                 "10:20 PM"
         );
 
         detectiveCase.setVictim(victim);
+
         detectiveCase.addSuspect(suspect1);
         detectiveCase.addSuspect(suspect2);
+
         detectiveCase.addWitness(witness1);
+
+        // Evidence
         Evidence evidence1 = new Evidence(
                 1,
                 "Broken Watch",
@@ -94,6 +101,8 @@ public class Main {
         detectiveCase.addEvidence(evidence2);
         detectiveCase.addEvidence(evidence3);
         detectiveCase.addEvidence(evidence4);
+
+        // Timeline
         TimelineEvent event1 = new TimelineEvent(
                 1,
                 "9:00 PM",
@@ -129,14 +138,13 @@ public class Main {
                 "Library"
         );
 
-
         detectiveCase.addTimelineEvent(event1);
         detectiveCase.addTimelineEvent(event2);
         detectiveCase.addTimelineEvent(event3);
         detectiveCase.addTimelineEvent(event4);
         detectiveCase.addTimelineEvent(event5);
 
-
+        // Locations
         Location library = new Location(
                 1,
                 "Library",
@@ -149,12 +157,10 @@ public class Main {
                 "The private office of the victim."
         );
 
-
-
         detectiveCase.addLocation(library);
         detectiveCase.addLocation(office);
 
-
+        // Start Investigation
         Investigation investigation =
                 new Investigation(detectiveCase);
 
