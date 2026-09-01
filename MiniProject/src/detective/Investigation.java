@@ -22,24 +22,33 @@ public class Investigation {
     private void buildCaseConnections() {
 
         // Connect evidence with locations and suspects
-        for (Evidence evidence : detectiveCase.getEvidenceList()) {
+        for (Evidence evidence :
+                detectiveCase.getEvidenceList()) {
 
-            String evidenceId = "E" + evidence.getEvidenceId();
-            String locationId = "L" + evidence.getFoundAt();
+            String evidenceId =
+                    "E" + evidence.getEvidenceId();
 
-            GraphNode evidenceNode = new GraphNode(
-                    evidenceId,
-                    evidence.getName(),
-                    "Evidence"
+            String locationId =
+                    "L" + evidence.getFoundAt();
+
+            GraphNode evidenceNode =
+                    new GraphNode(
+                            evidenceId,
+                            evidence.getName(),
+                            "Evidence"
+                    );
+
+            GraphNode locationNode =
+                    new GraphNode(
+                            locationId,
+                            evidence.getFoundAt(),
+                            "Location"
+                    );
+
+            graph.addConnection(
+                    evidenceNode,
+                    locationNode
             );
-
-            GraphNode locationNode = new GraphNode(
-                    locationId,
-                    evidence.getFoundAt(),
-                    "Location"
-            );
-
-            graph.addConnection(evidenceNode, locationNode);
 
             Suspect suspect =
                     detectiveCase.findSuspectById(
@@ -48,11 +57,12 @@ public class Investigation {
 
             if (suspect != null) {
 
-                GraphNode suspectNode = new GraphNode(
-                        "S" + suspect.getId(),
-                        suspect.getName(),
-                        "Suspect"
-                );
+                GraphNode suspectNode =
+                        new GraphNode(
+                                "S" + suspect.getId(),
+                                suspect.getName(),
+                                "Suspect"
+                        );
 
                 graph.addConnection(
                         suspectNode,
@@ -62,19 +72,22 @@ public class Investigation {
         }
 
         // Connect witnesses with locations
-        for (Witness witness : detectiveCase.getWitnesses()) {
+        for (Witness witness :
+                detectiveCase.getWitnesses()) {
 
-            GraphNode witnessNode = new GraphNode(
-                    "W" + witness.getId(),
-                    witness.getName(),
-                    "Witness"
-            );
+            GraphNode witnessNode =
+                    new GraphNode(
+                            "W" + witness.getId(),
+                            witness.getName(),
+                            "Witness"
+                    );
 
-            GraphNode locationNode = new GraphNode(
-                    "L" + witness.getLocationSeen(),
-                    witness.getLocationSeen(),
-                    "Location"
-            );
+            GraphNode locationNode =
+                    new GraphNode(
+                            "L" + witness.getLocationSeen(),
+                            witness.getLocationSeen(),
+                            "Location"
+                    );
 
             graph.addConnection(
                     witnessNode,
@@ -92,6 +105,7 @@ public class Investigation {
             displayMenu();
 
             System.out.print("Enter your choice: ");
+
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -125,12 +139,20 @@ public class Investigation {
                     break;
 
                 case 0:
+
                     running = false;
-                    System.out.println("\nInvestigation ended.");
+
+                    System.out.println(
+                            "\nInvestigation ended."
+                    );
+
                     break;
 
                 default:
-                    System.out.println("\nInvalid choice.");
+
+                    System.out.println(
+                            "\nInvalid choice."
+                    );
             }
         }
     }
@@ -160,34 +182,49 @@ public class Investigation {
         System.out.println("========================================");
 
         System.out.print("Enter suspect ID: ");
+
         int id = scanner.nextInt();
 
-        Suspect suspect = detectiveCase.findSuspectById(id);
+        Suspect suspect =
+                detectiveCase.findSuspectById(id);
 
         if (suspect == null) {
 
-            System.out.println("\nSuspect not found.");
+            System.out.println(
+                    "\nSuspect not found."
+            );
+
             return;
         }
 
         System.out.println("\nSuspect selected:");
+
         suspect.displayDetails();
 
-        System.out.println("\n----------- INTERROGATION -----------");
+        System.out.println(
+                "\n----------- INTERROGATION -----------"
+        );
 
         System.out.println(
                 "Detective: Where were you at the time of the crime?"
         );
 
         System.out.println("\nSuspect's response:");
-        System.out.println("\"" + suspect.getAlibi() + "\"");
 
-        System.out.println("\nWhat would you like to do?");
+        System.out.println(
+                "\"" + suspect.getAlibi() + "\""
+        );
+
+        System.out.println(
+                "\nWhat would you like to do?"
+        );
+
         System.out.println("1. Accept statement");
         System.out.println("2. Mark statement as suspicious");
         System.out.println("0. Return");
 
         System.out.print("Enter choice: ");
+
         int choice = scanner.nextInt();
 
         if (choice == 2) {
@@ -208,7 +245,9 @@ public class Investigation {
 
             suspect.decreaseSuspicion(5);
 
-            System.out.println("\nStatement recorded.");
+            System.out.println(
+                    "\nStatement recorded."
+            );
 
             System.out.println(
                     "Suspicion level decreased to "
@@ -225,45 +264,75 @@ public class Investigation {
         System.out.println("========================================");
 
         System.out.print("Enter suspect ID: ");
+
         int id = scanner.nextInt();
 
-        Suspect suspect = detectiveCase.findSuspectById(id);
+        Suspect suspect =
+                detectiveCase.findSuspectById(id);
 
         if (suspect == null) {
 
-            System.out.println("\nSuspect not found.");
+            System.out.println(
+                    "\nSuspect not found."
+            );
+
             return;
         }
 
-        System.out.println("\nSuspect: " + suspect.getName());
+        System.out.println(
+                "\nSuspect: "
+                        + suspect.getName()
+        );
 
         System.out.println("Claimed Alibi:");
-        System.out.println("\"" + suspect.getAlibi() + "\"");
 
-        System.out.println("\nKnown information:");
+        System.out.println(
+                "\"" + suspect.getAlibi() + "\""
+        );
+
+        System.out.println(
+                "\nKnown information:"
+        );
 
         detectiveCase.displayTimeline();
 
-        System.out.println("\n----------------------------------------");
-        System.out.println("ALIBI ANALYSIS");
-        System.out.println("----------------------------------------");
+        System.out.println(
+                "\n----------------------------------------"
+        );
+
+        System.out.println(
+                "ALIBI ANALYSIS"
+        );
+
+        System.out.println(
+                "----------------------------------------"
+        );
 
         if (suspect.getId() == 1) {
 
-            System.out.println("Timeline shows Daniel Carter");
+            System.out.println(
+                    "Timeline shows Daniel Carter"
+            );
+
             System.out.println(
                     "arrived at Blackwood Manor at 9:30 PM."
             );
 
-            System.out.println("\nAlibi Status: SUSPICIOUS");
+            System.out.println(
+                    "\nAlibi Status: SUSPICIOUS"
+            );
 
             suspect.increaseSuspicion(15);
 
         } else {
 
-            System.out.println("No contradiction found yet.");
+            System.out.println(
+                    "No contradiction found yet."
+            );
 
-            System.out.println("\nAlibi Status: UNVERIFIED");
+            System.out.println(
+                    "\nAlibi Status: UNVERIFIED"
+            );
         }
 
         System.out.println(
@@ -288,11 +357,16 @@ public class Investigation {
                                 )
                 );
 
-        ranking.addAll(detectiveCase.getSuspects());
+        ranking.addAll(
+                detectiveCase.getSuspects()
+        );
 
         if (ranking.isEmpty()) {
 
-            System.out.println("No suspects available.");
+            System.out.println(
+                    "No suspects available."
+            );
+
             return;
         }
 
@@ -300,10 +374,12 @@ public class Investigation {
 
         while (!ranking.isEmpty()) {
 
-            Suspect suspect = ranking.poll();
+            Suspect suspect =
+                    ranking.poll();
 
             System.out.println(
-                    position + ". "
+                    position
+                            + ". "
                             + suspect.getName()
                             + " - Suspicion: "
                             + suspect.getSuspicionLevel()
@@ -328,14 +404,26 @@ public class Investigation {
 
         scanner.nextLine();
 
-        System.out.print("\nEnter first node ID: ");
-        String first = scanner.nextLine();
+        System.out.print(
+                "\nEnter first node ID: "
+        );
 
-        System.out.print("Enter second node ID: ");
-        String second = scanner.nextLine();
+        String first =
+                scanner.nextLine();
 
-        graph.findConnection(first, second);
+        System.out.print(
+                "Enter second node ID: "
+        );
+
+        String second =
+                scanner.nextLine();
+
+        graph.findConnection(
+                first,
+                second
+        );
     }
+
     private void examineEvidence() {
 
         System.out.println("\n========================================");
@@ -344,38 +432,80 @@ public class Investigation {
 
         detectiveCase.investigateEvidence();
 
-        System.out.print("\nEnter evidence ID: ");
+        System.out.print(
+                "\nEnter evidence ID: "
+        );
+
         int id = scanner.nextInt();
 
-        Evidence evidence = detectiveCase.findEvidenceById(id);
+        Evidence evidence =
+                detectiveCase.findEvidenceById(id);
 
         if (evidence == null) {
 
-            System.out.println("\nEvidence not found.");
+            System.out.println(
+                    "\nEvidence not found."
+            );
+
             return;
         }
 
-        System.out.println("\n----------------------------------------");
-        System.out.println("EVIDENCE EXAMINATION");
-        System.out.println("----------------------------------------");
+        System.out.println(
+                "\n----------------------------------------"
+        );
 
-        System.out.println("Evidence : " + evidence.getName());
-        System.out.println("Type     : " + evidence.getType());
-        System.out.println("Found At : " + evidence.getFoundAt());
+        System.out.println(
+                "EVIDENCE EXAMINATION"
+        );
 
-        System.out.println("\nDescription:");
-        System.out.println(evidence.getDescription());
+        System.out.println(
+                "----------------------------------------"
+        );
 
-        System.out.println("\nReliability:");
+        System.out.println(
+                "Evidence : "
+                        + evidence.getName()
+        );
+
+        System.out.println(
+                "Type     : "
+                        + evidence.getType()
+        );
+
+        System.out.println(
+                "Found At : "
+                        + evidence.getFoundAt()
+        );
+
+        System.out.println(
+                "\nDescription:"
+        );
+
+        System.out.println(
+                evidence.getDescription()
+        );
+
+        System.out.println(
+                "\nReliability:"
+        );
+
         System.out.println(
                 evidence.isReliable()
                         ? "Reliable"
                         : "Questionable"
         );
 
-        System.out.println("\n----------------------------------------");
-        System.out.println("INVESTIGATION RESULT");
-        System.out.println("----------------------------------------");
+        System.out.println(
+                "\n----------------------------------------"
+        );
+
+        System.out.println(
+                "INVESTIGATION RESULT"
+        );
+
+        System.out.println(
+                "----------------------------------------"
+        );
 
         if (evidence.getEvidenceId() == 1) {
 
@@ -384,15 +514,15 @@ public class Investigation {
             );
 
             System.out.println(
-                    "This places the evidence close to the"
-                            + " estimated crime period."
+                    "This places the evidence close to the "
+                            + "estimated crime period."
             );
 
         } else if (evidence.getEvidenceId() == 2) {
 
             System.out.println(
-                    "The photograph appears to be connected"
-                            + " to the victim's personal life."
+                    "The photograph appears to be connected "
+                            + "to the victim's personal life."
             );
 
             System.out.println(
@@ -402,8 +532,8 @@ public class Investigation {
         } else if (evidence.getEvidenceId() == 3) {
 
             System.out.println(
-                    "The footprint appears to have been made"
-                            + " shortly before the crime."
+                    "The footprint appears to have been made "
+                            + "shortly before the crime."
             );
 
             System.out.println(
@@ -413,8 +543,8 @@ public class Investigation {
         } else if (evidence.getEvidenceId() == 4) {
 
             System.out.println(
-                    "The handwriting suggests the note was"
-                            + " written by someone familiar with the victim."
+                    "The handwriting suggests the note was "
+                            + "written by someone familiar with the victim."
             );
 
         } else {

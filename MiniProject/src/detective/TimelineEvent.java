@@ -19,9 +19,13 @@ public class TimelineEvent {
     public void displayEvent() {
 
         System.out.println(
-                eventId + ". " + time +
-                        " | " + description +
-                        " | Location: " + location
+                eventId
+                        + ". "
+                        + time
+                        + " | "
+                        + description
+                        + " | Location: "
+                        + location
         );
     }
 

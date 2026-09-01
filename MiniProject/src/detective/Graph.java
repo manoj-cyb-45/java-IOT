@@ -8,6 +8,7 @@ public class Graph {
     private Map<String, List<String>> connections;
 
     public Graph() {
+
         nodes = new HashMap<>();
         connections = new HashMap<>();
     }
@@ -15,18 +16,29 @@ public class Graph {
     public void addNode(GraphNode node) {
 
         if (!nodes.containsKey(node.getId())) {
+
             nodes.put(node.getId(), node);
-            connections.put(node.getId(), new ArrayList<>());
+            connections.put(
+                    node.getId(),
+                    new ArrayList<>()
+            );
         }
     }
 
-    public void addConnection(GraphNode first, GraphNode second) {
+    public void addConnection(
+            GraphNode first,
+            GraphNode second) {
 
         addNode(first);
         addNode(second);
 
-        connections.get(first.getId()).add(second.getId());
-        connections.get(second.getId()).add(first.getId());
+        connections
+                .get(first.getId())
+                .add(second.getId());
+
+        connections
+                .get(second.getId())
+                .add(first.getId());
     }
 
     public void displayGraph() {
@@ -41,30 +53,43 @@ public class Graph {
 
             System.out.print(node + " -> ");
 
-            for (String connectionId : connections.get(id)) {
+            for (String connectionId :
+                    connections.get(id)) {
 
                 GraphNode connectedNode =
                         nodes.get(connectionId);
 
-                System.out.print(connectedNode + " | ");
+                System.out.print(
+                        connectedNode + " | "
+                );
             }
 
             System.out.println();
         }
     }
 
-    public void findConnection(String startId, String targetId) {
+    public void findConnection(
+            String startId,
+            String targetId) {
 
-        if (!nodes.containsKey(startId) ||
-                !nodes.containsKey(targetId)) {
+        if (!nodes.containsKey(startId)
+                || !nodes.containsKey(targetId)) {
 
-            System.out.println("\nOne or both nodes were not found.");
+            System.out.println(
+                    "\nOne or both nodes were not found."
+            );
+
             return;
         }
 
-        Queue<String> queue = new LinkedList<>();
-        Set<String> visited = new HashSet<>();
-        Map<String, String> parent = new HashMap<>();
+        Queue<String> queue =
+                new LinkedList<>();
+
+        Set<String> visited =
+                new HashSet<>();
+
+        Map<String, String> parent =
+                new HashMap<>();
 
         queue.add(startId);
         visited.add(startId);
@@ -77,12 +102,18 @@ public class Graph {
                 break;
             }
 
-            for (String neighbour : connections.get(current)) {
+            for (String neighbour :
+                    connections.get(current)) {
 
                 if (!visited.contains(neighbour)) {
 
                     visited.add(neighbour);
-                    parent.put(neighbour, current);
+
+                    parent.put(
+                            neighbour,
+                            current
+                    );
+
                     queue.add(neighbour);
                 }
             }
@@ -90,18 +121,24 @@ public class Graph {
 
         if (!visited.contains(targetId)) {
 
-            System.out.println("\nNo connection found.");
+            System.out.println(
+                    "\nNo connection found."
+            );
+
             return;
         }
 
-        List<String> path = new ArrayList<>();
+        List<String> path =
+                new ArrayList<>();
 
         String current = targetId;
 
         while (current != null) {
 
             path.add(current);
-            current = parent.get(current);
+
+            current =
+                    parent.get(current);
         }
 
         Collections.reverse(path);
@@ -112,7 +149,8 @@ public class Graph {
 
         for (int i = 0; i < path.size(); i++) {
 
-            GraphNode node = nodes.get(path.get(i));
+            GraphNode node =
+                    nodes.get(path.get(i));
 
             System.out.print(node);
 

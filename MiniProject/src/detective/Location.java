@@ -8,7 +8,6 @@ public class Location {
     private String name;
     private String description;
 
-
     private ArrayList<Evidence> evidenceList;
 
     public Location(int id, String name, String description) {
@@ -35,10 +34,16 @@ public class Location {
         System.out.println("\nEvidence found:");
 
         if (evidenceList.isEmpty()) {
+
             System.out.println("No evidence found here.");
+
         } else {
+
             for (Evidence evidence : evidenceList) {
-                System.out.println("- " + evidence.getName());
+
+                System.out.println(
+                        "- " + evidence.getName()
+                );
             }
         }
     }
