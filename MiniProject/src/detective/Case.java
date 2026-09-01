@@ -16,7 +16,7 @@ public class Case {
     private ArrayList<Witness> witnesses;
     private ArrayList<Evidence> evidenceList;
     private ArrayList<TimelineEvent> timeline;
-
+    private ArrayList<Location> locations;
     public Case(int caseId, String caseTitle, String crimeType,
                 String crimeLocation, String crimeTime) {
 
@@ -30,6 +30,13 @@ public class Case {
         witnesses = new ArrayList<>();
         evidenceList = new ArrayList<>();
         timeline = new ArrayList<>();
+        locations = new ArrayList<>();
+    }
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+    public ArrayList<Location> getLocations() {
+        return locations;
     }
 
     public void setVictim(Victim victim) {
@@ -131,8 +138,15 @@ public class Case {
         }
 
         for (Evidence evidence : evidenceList) {
-            evidence.displayDetails();
+
+            System.out.println(
+                    evidence.getEvidenceId()
+                            + ". "
+                            + evidence.getName()
+            );
         }
+
+        System.out.println("========================================");
     }
     public Suspect findSuspectById(int id) {
 
@@ -147,5 +161,22 @@ public class Case {
     }
     public ArrayList<Suspect> getSuspects() {
         return suspects;
+    }
+    public ArrayList<Evidence> getEvidenceList() {
+        return evidenceList;
+    }
+    public ArrayList<Witness> getWitnesses() {
+        return witnesses;
+    }
+    public Evidence findEvidenceById(int id) {
+
+        for (Evidence evidence : evidenceList) {
+
+            if (evidence.getEvidenceId() == id) {
+                return evidence;
+            }
+        }
+
+        return null;
     }
 }

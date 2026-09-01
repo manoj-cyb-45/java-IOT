@@ -56,7 +56,8 @@ public class Main {
                 "Physical",
                 "A broken wristwatch found near the crime scene.",
                 "Library",
-                true
+                true,
+                1
         );
 
         Evidence evidence2 = new Evidence(
@@ -65,7 +66,8 @@ public class Main {
                 "Document",
                 "A photograph with a person's face partially torn away.",
                 "Victim's Office",
-                false
+                false,
+                2
         );
 
         Evidence evidence3 = new Evidence(
@@ -74,7 +76,8 @@ public class Main {
                 "Physical",
                 "A muddy footprint found near the library entrance.",
                 "Library Entrance",
-                true
+                true,
+                1
         );
 
         Evidence evidence4 = new Evidence(
@@ -83,7 +86,8 @@ public class Main {
                 "Document",
                 "A handwritten note containing a possible threat.",
                 "Victim's Office",
-                false
+                false,
+                2
         );
 
         detectiveCase.addEvidence(evidence1);
@@ -125,6 +129,7 @@ public class Main {
                 "Library"
         );
 
+
         detectiveCase.addTimelineEvent(event1);
         detectiveCase.addTimelineEvent(event2);
         detectiveCase.addTimelineEvent(event3);
@@ -132,18 +137,27 @@ public class Main {
         detectiveCase.addTimelineEvent(event5);
 
 
+        Location library = new Location(
+                1,
+                "Library",
+                "A large room containing old books and a reading area."
+        );
+
+        Location office = new Location(
+                2,
+                "Victim's Office",
+                "The private office of the victim."
+        );
+
+
+
+        detectiveCase.addLocation(library);
+        detectiveCase.addLocation(office);
+
+
         Investigation investigation =
                 new Investigation(detectiveCase);
 
         investigation.start();
-        Graph graph = new Graph();
-
-        graph.addConnection("Daniel Carter", "Library");
-        graph.addConnection("Library", "Broken Watch");
-        graph.addConnection("Library", "Thomas Brown");
-        graph.addConnection("Sarah Miller", "Victim's Office");
-        graph.addConnection("Victim's Office", "Torn Photograph");
-
-        graph.displayGraph();
     }
 }

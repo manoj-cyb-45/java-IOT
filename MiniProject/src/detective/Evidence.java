@@ -8,10 +8,11 @@ public class Evidence {
     private String description;
     private String foundAt;
     private boolean reliable;
+    private int relatedSuspectId;
 
     public Evidence(int evidenceId, String name, String type,
                     String description, String foundAt,
-                    boolean reliable) {
+                    boolean reliable, int relatedSuspectId) {
 
         this.evidenceId = evidenceId;
         this.name = name;
@@ -19,6 +20,10 @@ public class Evidence {
         this.description = description;
         this.foundAt = foundAt;
         this.reliable = reliable;
+        this.relatedSuspectId = relatedSuspectId;
+    }
+    public int getRelatedSuspectId() {
+        return relatedSuspectId;
     }
 
     public void displayDetails() {

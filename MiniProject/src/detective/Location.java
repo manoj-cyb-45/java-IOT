@@ -8,6 +8,7 @@ public class Location {
     private String name;
     private String description;
 
+
     private ArrayList<Evidence> evidenceList;
 
     public Location(int id, String name, String description) {
