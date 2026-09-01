@@ -1,49 +1,44 @@
 package detective;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class Investigation {
 
     private Case detectiveCase;
     private Scanner scanner;
     private Graph graph;
+    private Stack<Deduction> deductionStack;
 
     public Investigation(Case detectiveCase) {
 
         this.detectiveCase = detectiveCase;
         scanner = new Scanner(System.in);
-
         graph = new Graph();
+        deductionStack = new Stack<>();
 
         buildCaseConnections();
     }
 
     private void buildCaseConnections() {
 
-        // Connect evidence with locations and suspects
-        for (Evidence evidence :
-                detectiveCase.getEvidenceList()) {
+        for (Evidence evidence : detectiveCase.getEvidenceList()) {
 
-            String evidenceId =
-                    "E" + evidence.getEvidenceId();
+            GraphNode evidenceNode = new GraphNode(
+                    "E" + evidence.getEvidenceId(),
+                    evidence.getName(),
+                    "Evidence"
+            );
 
-            String locationId =
-                    "L" + evidence.getFoundAt();
-
-            GraphNode evidenceNode =
-                    new GraphNode(
-                            evidenceId,
-                            evidence.getName(),
-                            "Evidence"
-                    );
-
-            GraphNode locationNode =
-                    new GraphNode(
-                            locationId,
-                            evidence.getFoundAt(),
-                            "Location"
-                    );
+            GraphNode locationNode = new GraphNode(
+                    "L" + cleanId(evidence.getFoundAt()),
+                    evidence.getFoundAt(),
+                    "Location"
+            );
 
             graph.addConnection(
                     evidenceNode,
@@ -57,12 +52,11 @@ public class Investigation {
 
             if (suspect != null) {
 
-                GraphNode suspectNode =
-                        new GraphNode(
-                                "S" + suspect.getId(),
-                                suspect.getName(),
-                                "Suspect"
-                        );
+                GraphNode suspectNode = new GraphNode(
+                        "S" + suspect.getId(),
+                        suspect.getName(),
+                        "Suspect"
+                );
 
                 graph.addConnection(
                         suspectNode,
@@ -71,29 +65,29 @@ public class Investigation {
             }
         }
 
-        // Connect witnesses with locations
-        for (Witness witness :
-                detectiveCase.getWitnesses()) {
+        for (Witness witness : detectiveCase.getWitnesses()) {
 
-            GraphNode witnessNode =
-                    new GraphNode(
-                            "W" + witness.getId(),
-                            witness.getName(),
-                            "Witness"
-                    );
+            GraphNode witnessNode = new GraphNode(
+                    "W" + witness.getId(),
+                    witness.getName(),
+                    "Witness"
+            );
 
-            GraphNode locationNode =
-                    new GraphNode(
-                            "L" + witness.getLocationSeen(),
-                            witness.getLocationSeen(),
-                            "Location"
-                    );
+            GraphNode locationNode = new GraphNode(
+                    "L" + cleanId(witness.getLocationSeen()),
+                    witness.getLocationSeen(),
+                    "Location"
+            );
 
             graph.addConnection(
                     witnessNode,
                     locationNode
             );
         }
+    }
+
+    private String cleanId(String value) {
+        return value.replaceAll("[^A-Za-z0-9]", "");
     }
 
     public void start() {
@@ -106,6 +100,12 @@ public class Investigation {
 
             System.out.print("Enter your choice: ");
 
+            if (!scanner.hasNextInt()) {
+                System.out.println("\nPlease enter a number.");
+                scanner.nextLine();
+                continue;
+            }
+
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -115,7 +115,7 @@ public class Investigation {
                     break;
 
                 case 2:
-                    detectiveCase.displayTimeline();
+                    showSortedTimeline();
                     break;
 
                 case 3:
@@ -138,222 +138,237 @@ public class Investigation {
                     findConnections();
                     break;
 
+                case 8:
+                    showGraph();
+                    break;
+
+                case 9:
+                    makeDeduction();
+                    break;
+
+                case 10:
+                    viewDeductions();
+                    break;
+
+                case 11:
+                    undoDeduction();
+                    break;
+
+                case 12:
+                    investigateLocation();
+                    break;
+
+                case 13:
+                    showGraphDFS();
+                    break;
+
                 case 0:
-
                     running = false;
-
-                    System.out.println(
-                            "\nInvestigation ended."
-                    );
-
+                    System.out.println("\nInvestigation closed.");
                     break;
 
                 default:
-
-                    System.out.println(
-                            "\nInvalid choice."
-                    );
+                    System.out.println("\nInvalid choice.");
             }
         }
+
+        scanner.close();
     }
 
     private void displayMenu() {
 
         System.out.println("\n========================================");
-        System.out.println("       DETECTIVE CASE INVESTIGATION");
+        System.out.println("       DETECTIVE CASE ENGINE");
         System.out.println("========================================");
-
         System.out.println("1. View Case Details");
-        System.out.println("2. View Timeline");
+        System.out.println("2. View Chronological Timeline");
         System.out.println("3. Examine Evidence");
         System.out.println("4. Question Suspect");
         System.out.println("5. Check Alibi");
         System.out.println("6. View Suspect Rankings");
-        System.out.println("7. Find Connections");
+        System.out.println("7. Find Connection (BFS)");
+        System.out.println("8. View Connection Graph");
+        System.out.println("9. Make Deduction");
+        System.out.println("10. View Deductions");
+        System.out.println("11. Undo Last Deduction");
+        System.out.println("12. Investigate Location");
+        System.out.println("13. Explore Graph (DFS)");
         System.out.println("0. Exit");
-
         System.out.println("========================================");
+    }
+
+    private void showSortedTimeline() {
+
+        List<TimelineEvent> sorted =
+                new ArrayList<>(
+                        detectiveCase.getTimeline()
+                );
+
+        sorted.sort(
+                Comparator.comparingInt(
+                        TimelineEvent::getMinutes
+                )
+        );
+
+        System.out.println("\n========================================");
+        System.out.println("        CHRONOLOGICAL TIMELINE");
+        System.out.println("========================================");
+
+        for (TimelineEvent event : sorted) {
+            event.displayEvent();
+        }
+    }
+
+    private void examineEvidence() {
+
+        detectiveCase.displayEvidenceList();
+
+        System.out.print("\nEnter evidence ID: ");
+        int id = scanner.nextInt();
+
+        Evidence evidence =
+                detectiveCase.findEvidenceById(id);
+
+        if (evidence == null) {
+            System.out.println("\nEvidence not found.");
+            return;
+        }
+
+        evidence.examine();
+
+        Suspect suspect =
+                detectiveCase.findSuspectById(
+                        evidence.getRelatedSuspectId()
+                );
+
+        if (suspect != null) {
+
+            int change = evidence.isReliable() ? 10 : 5;
+
+            suspect.increaseSuspicion(change);
+
+            System.out.println(
+                    "\nRelated suspect: " +
+                    suspect.getName()
+            );
+
+            System.out.println(
+                    "Suspicion increased to " +
+                    suspect.getSuspicionLevel() +
+                    "/100"
+            );
+        }
     }
 
     private void questionSuspect() {
 
-        System.out.println("\n========================================");
-        System.out.println("           QUESTION SUSPECT");
-        System.out.println("========================================");
-
-        System.out.print("Enter suspect ID: ");
-
+        System.out.print("\nEnter suspect ID: ");
         int id = scanner.nextInt();
 
         Suspect suspect =
                 detectiveCase.findSuspectById(id);
 
         if (suspect == null) {
-
-            System.out.println(
-                    "\nSuspect not found."
-            );
-
+            System.out.println("\nSuspect not found.");
             return;
         }
-
-        System.out.println("\nSuspect selected:");
 
         suspect.displayDetails();
 
         System.out.println(
-                "\n----------- INTERROGATION -----------"
+                "\nSuspect response: \"" +
+                suspect.getAlibi() + "\""
         );
 
-        System.out.println(
-                "Detective: Where were you at the time of the crime?"
-        );
-
-        System.out.println("\nSuspect's response:");
-
-        System.out.println(
-                "\"" + suspect.getAlibi() + "\""
-        );
-
-        System.out.println(
-                "\nWhat would you like to do?"
-        );
-
-        System.out.println("1. Accept statement");
-        System.out.println("2. Mark statement as suspicious");
-        System.out.println("0. Return");
-
-        System.out.print("Enter choice: ");
+        System.out.println("\n1. Accept statement");
+        System.out.println("2. Mark as suspicious");
+        System.out.print("Choice: ");
 
         int choice = scanner.nextInt();
 
-        if (choice == 2) {
-
-            suspect.increaseSuspicion(15);
-
-            System.out.println(
-                    "\nThe statement has been marked as suspicious."
-            );
-
-            System.out.println(
-                    "Suspicion level increased to "
-                            + suspect.getSuspicionLevel()
-                            + "/100"
-            );
-
-        } else if (choice == 1) {
+        if (choice == 1) {
 
             suspect.decreaseSuspicion(5);
 
             System.out.println(
-                    "\nStatement recorded."
+                    "Suspicion reduced to " +
+                    suspect.getSuspicionLevel() +
+                    "/100"
             );
 
+        } else if (choice == 2) {
+
+            suspect.increaseSuspicion(15);
+
             System.out.println(
-                    "Suspicion level decreased to "
-                            + suspect.getSuspicionLevel()
-                            + "/100"
+                    "Suspicion increased to " +
+                    suspect.getSuspicionLevel() +
+                    "/100"
             );
         }
     }
 
     private void checkAlibi() {
 
-        System.out.println("\n========================================");
-        System.out.println("             CHECK ALIBI");
-        System.out.println("========================================");
-
-        System.out.print("Enter suspect ID: ");
-
+        System.out.print("\nEnter suspect ID: ");
         int id = scanner.nextInt();
 
         Suspect suspect =
                 detectiveCase.findSuspectById(id);
 
         if (suspect == null) {
-
-            System.out.println(
-                    "\nSuspect not found."
-            );
-
+            System.out.println("\nSuspect not found.");
             return;
         }
 
-        System.out.println(
-                "\nSuspect: "
-                        + suspect.getName()
-        );
+        System.out.println("\nSuspect: " + suspect.getName());
+        System.out.println("Claimed alibi: " + suspect.getAlibi());
 
-        System.out.println("Claimed Alibi:");
+        System.out.println("\nTimeline evidence:");
 
-        System.out.println(
-                "\"" + suspect.getAlibi() + "\""
-        );
+        showSortedTimeline();
 
-        System.out.println(
-                "\nKnown information:"
-        );
-
-        detectiveCase.displayTimeline();
-
-        System.out.println(
-                "\n----------------------------------------"
-        );
-
-        System.out.println(
-                "ALIBI ANALYSIS"
-        );
-
-        System.out.println(
-                "----------------------------------------"
-        );
+        System.out.println("\nALIBI RESULT");
 
         if (suspect.getId() == 1) {
 
             System.out.println(
-                    "Timeline shows Daniel Carter"
-            );
-
-            System.out.println(
-                    "arrived at Blackwood Manor at 9:30 PM."
-            );
-
-            System.out.println(
-                    "\nAlibi Status: SUSPICIOUS"
+                    "Contradiction detected: Daniel Carter " +
+                    "was reported at the manor during the investigation window."
             );
 
             suspect.increaseSuspicion(15);
 
+            System.out.println(
+                    "Status: SUSPICIOUS"
+            );
+
         } else {
 
             System.out.println(
-                    "No contradiction found yet."
+                    "No direct contradiction has been established."
             );
 
             System.out.println(
-                    "\nAlibi Status: UNVERIFIED"
+                    "Status: UNVERIFIED"
             );
         }
 
         System.out.println(
-                "Current Suspicion: "
-                        + suspect.getSuspicionLevel()
-                        + "/100"
+                "Current suspicion: " +
+                suspect.getSuspicionLevel() +
+                "/100"
         );
     }
 
     private void showSuspectRankings() {
 
-        System.out.println("\n========================================");
-        System.out.println("          SUSPECT RANKINGS");
-        System.out.println("========================================");
-
         PriorityQueue<Suspect> ranking =
                 new PriorityQueue<>(
-                        (s1, s2) ->
+                        (first, second) ->
                                 Integer.compare(
-                                        s2.getSuspicionLevel(),
-                                        s1.getSuspicionLevel()
+                                        second.getSuspicionLevel(),
+                                        first.getSuspicionLevel()
                                 )
                 );
 
@@ -361,29 +376,22 @@ public class Investigation {
                 detectiveCase.getSuspects()
         );
 
-        if (ranking.isEmpty()) {
-
-            System.out.println(
-                    "No suspects available."
-            );
-
-            return;
-        }
+        System.out.println("\n========================================");
+        System.out.println("          SUSPECT RANKINGS");
+        System.out.println("========================================");
 
         int position = 1;
 
         while (!ranking.isEmpty()) {
 
-            Suspect suspect =
-                    ranking.poll();
+            Suspect suspect = ranking.poll();
 
             System.out.println(
-                    position
-                            + ". "
-                            + suspect.getName()
-                            + " - Suspicion: "
-                            + suspect.getSuspicionLevel()
-                            + "/100"
+                    position + ". " +
+                    suspect.getName() +
+                    " - " +
+                    suspect.getSuspicionLevel() +
+                    "/100"
             );
 
             position++;
@@ -396,162 +404,130 @@ public class Investigation {
         System.out.println("          FIND CONNECTIONS");
         System.out.println("========================================");
 
-        System.out.println("Example IDs:");
-        System.out.println("S1 = Suspect");
-        System.out.println("E1 = Evidence");
-        System.out.println("LLibrary = Location");
-        System.out.println("W1 = Witness");
+        System.out.println("S1, S2, S3 = Suspects");
+        System.out.println("E1, E2, E3 = Evidence");
+        System.out.println("W1, W2     = Witnesses");
+        System.out.println("LLibrary   = Library");
+        System.out.println("LOffice    = Victim's Office");
+
+        scanner.nextLine();
+
+        System.out.print("\nEnter first node ID: ");
+        String first = scanner.nextLine();
+
+        System.out.print("Enter second node ID: ");
+        String second = scanner.nextLine();
+
+        graph.findConnection(first, second);
+    }
+
+    private void showGraph() {
+        graph.displayGraph();
+    }
+
+    private void showGraphDFS() {
+
+        System.out.print(
+                "\nEnter starting node ID (example S1): "
+        );
+
+        scanner.nextLine();
+        String start = scanner.nextLine();
+
+        graph.depthFirstSearch(start);
+    }
+
+    private void makeDeduction() {
 
         scanner.nextLine();
 
         System.out.print(
-                "\nEnter first node ID: "
+                "\nEnter your deduction: "
         );
 
-        String first =
-                scanner.nextLine();
+        String text = scanner.nextLine();
 
-        System.out.print(
-                "Enter second node ID: "
-        );
-
-        String second =
-                scanner.nextLine();
-
-        graph.findConnection(
-                first,
-                second
-        );
-    }
-
-    private void examineEvidence() {
-
-        System.out.println("\n========================================");
-        System.out.println("           EXAMINE EVIDENCE");
-        System.out.println("========================================");
-
-        detectiveCase.investigateEvidence();
-
-        System.out.print(
-                "\nEnter evidence ID: "
-        );
-
-        int id = scanner.nextInt();
-
-        Evidence evidence =
-                detectiveCase.findEvidenceById(id);
-
-        if (evidence == null) {
-
+        if (text.trim().isEmpty()) {
             System.out.println(
-                    "\nEvidence not found."
+                    "Deduction cannot be empty."
             );
-
             return;
         }
 
-        System.out.println(
-                "\n----------------------------------------"
+        int id = deductionStack.size() + 1;
+
+        deductionStack.push(
+                new Deduction(id, text)
         );
 
         System.out.println(
-                "EVIDENCE EXAMINATION"
+                "\nDeduction saved."
         );
+    }
 
-        System.out.println(
-                "----------------------------------------"
-        );
+    private void viewDeductions() {
 
-        System.out.println(
-                "Evidence : "
-                        + evidence.getName()
-        );
+        System.out.println("\n========================================");
+        System.out.println("          INVESTIGATOR NOTES");
+        System.out.println("========================================");
 
-        System.out.println(
-                "Type     : "
-                        + evidence.getType()
-        );
+        if (deductionStack.isEmpty()) {
+            System.out.println("No deductions recorded.");
+            return;
+        }
 
-        System.out.println(
-                "Found At : "
-                        + evidence.getFoundAt()
-        );
+        for (Deduction deduction : deductionStack) {
+            deduction.display();
+        }
+    }
 
-        System.out.println(
-                "\nDescription:"
-        );
+    private void undoDeduction() {
 
-        System.out.println(
-                evidence.getDescription()
-        );
-
-        System.out.println(
-                "\nReliability:"
-        );
-
-        System.out.println(
-                evidence.isReliable()
-                        ? "Reliable"
-                        : "Questionable"
-        );
-
-        System.out.println(
-                "\n----------------------------------------"
-        );
-
-        System.out.println(
-                "INVESTIGATION RESULT"
-        );
-
-        System.out.println(
-                "----------------------------------------"
-        );
-
-        if (evidence.getEvidenceId() == 1) {
-
+        if (deductionStack.isEmpty()) {
             System.out.println(
-                    "The watch stopped at approximately 10:17 PM."
+                    "\nThere are no deductions to undo."
             );
+            return;
+        }
+
+        Deduction removed =
+                deductionStack.pop();
+
+        System.out.println(
+                "\nRemoved: " +
+                removed.getDescription()
+        );
+    }
+
+    private void investigateLocation() {
+
+        System.out.println("\n========================================");
+        System.out.println("          LOCATION INVESTIGATION");
+        System.out.println("========================================");
+
+        List<Location> locations =
+                detectiveCase.getLocations();
+
+        for (Location location : locations) {
 
             System.out.println(
-                    "This places the evidence close to the "
-                            + "estimated crime period."
-            );
-
-        } else if (evidence.getEvidenceId() == 2) {
-
-            System.out.println(
-                    "The photograph appears to be connected "
-                            + "to the victim's personal life."
-            );
-
-            System.out.println(
-                    "The damaged portion may hide an important clue."
-            );
-
-        } else if (evidence.getEvidenceId() == 3) {
-
-            System.out.println(
-                    "The footprint appears to have been made "
-                            + "shortly before the crime."
-            );
-
-            System.out.println(
-                    "It may help identify who entered the library."
-            );
-
-        } else if (evidence.getEvidenceId() == 4) {
-
-            System.out.println(
-                    "The handwriting suggests the note was "
-                            + "written by someone familiar with the victim."
-            );
-
-        } else {
-
-            System.out.println(
-                    "No additional information was discovered."
+                    location.getId() +
+                    ". " +
+                    location.getName()
             );
         }
+
+        System.out.print("\nEnter location number: ");
+        int id = scanner.nextInt();
+
+        for (Location location : locations) {
+
+            if (location.getId() == id) {
+                location.displayLocation();
+                return;
+            }
+        }
+
+        System.out.println("\nLocation not found.");
     }
 }

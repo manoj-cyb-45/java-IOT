@@ -36,18 +36,14 @@ public class Suspect {
     }
 
     public void increaseSuspicion(int amount) {
-
         suspicionLevel += amount;
-
         if (suspicionLevel > 100) {
             suspicionLevel = 100;
         }
     }
 
     public void decreaseSuspicion(int amount) {
-
         suspicionLevel -= amount;
-
         if (suspicionLevel < 0) {
             suspicionLevel = 0;
         }

@@ -2,6 +2,7 @@ package detective;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Case {
 
@@ -44,7 +45,6 @@ public class Case {
     }
 
     public void addSuspect(Suspect suspect) {
-
         suspects.add(suspect);
         suspectMap.put(suspect.getId(), suspect);
     }
@@ -70,30 +70,31 @@ public class Case {
     }
 
     public Evidence findEvidenceById(int id) {
-
         for (Evidence evidence : evidenceList) {
-
             if (evidence.getEvidenceId() == id) {
                 return evidence;
             }
         }
-
         return null;
     }
 
-    public ArrayList<Suspect> getSuspects() {
+    public List<Suspect> getSuspects() {
         return suspects;
     }
 
-    public ArrayList<Witness> getWitnesses() {
+    public List<Witness> getWitnesses() {
         return witnesses;
     }
 
-    public ArrayList<Evidence> getEvidenceList() {
+    public List<Evidence> getEvidenceList() {
         return evidenceList;
     }
 
-    public ArrayList<Location> getLocations() {
+    public List<TimelineEvent> getTimeline() {
+        return timeline;
+    }
+
+    public List<Location> getLocations() {
         return locations;
     }
 
@@ -102,7 +103,6 @@ public class Case {
         System.out.println("\n========================================");
         System.out.println("              CASE DETAILS");
         System.out.println("========================================");
-
         System.out.println("Case ID       : " + caseId);
         System.out.println("Case Title    : " + caseTitle);
         System.out.println("Crime         : " + crimeType);
@@ -114,39 +114,27 @@ public class Case {
         }
 
         System.out.println("\n----------- SUSPECTS -----------");
-
         if (suspects.isEmpty()) {
-
             System.out.println("No suspects added.");
-
         } else {
-
             for (Suspect suspect : suspects) {
                 suspect.displayDetails();
             }
         }
 
         System.out.println("\n----------- WITNESSES -----------");
-
         if (witnesses.isEmpty()) {
-
             System.out.println("No witnesses added.");
-
         } else {
-
             for (Witness witness : witnesses) {
                 witness.displayDetails();
             }
         }
 
         System.out.println("\n----------- EVIDENCE -----------");
-
         if (evidenceList.isEmpty()) {
-
             System.out.println("No evidence collected.");
-
         } else {
-
             for (Evidence evidence : evidenceList) {
                 evidence.displayDetails();
             }
@@ -162,7 +150,6 @@ public class Case {
         System.out.println("========================================");
 
         if (timeline.isEmpty()) {
-
             System.out.println("No timeline events available.");
             return;
         }
@@ -174,27 +161,20 @@ public class Case {
         System.out.println("========================================");
     }
 
-    public void investigateEvidence() {
+    public void displayEvidenceList() {
 
-        System.out.println("\n========================================");
-        System.out.println("          EVIDENCE INVESTIGATION");
-        System.out.println("========================================");
+        System.out.println("\n----------- AVAILABLE EVIDENCE -----------");
 
         if (evidenceList.isEmpty()) {
-
-            System.out.println("No evidence has been collected.");
+            System.out.println("No evidence collected.");
             return;
         }
 
         for (Evidence evidence : evidenceList) {
-
             System.out.println(
-                    evidence.getEvidenceId()
-                            + ". "
-                            + evidence.getName()
+                    evidence.getEvidenceId() + ". " +
+                    evidence.getName()
             );
         }
-
-        System.out.println("========================================");
     }
 }

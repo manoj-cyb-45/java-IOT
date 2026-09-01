@@ -7,7 +7,6 @@ public class GraphNode {
     private String type;
 
     public GraphNode(String id, String name, String type) {
-
         this.id = id;
         this.name = name;
         this.type = type;
@@ -27,7 +26,6 @@ public class GraphNode {
 
     @Override
     public String toString() {
-
         return name + " [" + type + "]";
     }
 }

@@ -9,10 +9,12 @@ public class Evidence {
     private String foundAt;
     private boolean reliable;
     private int relatedSuspectId;
+    private String analysis;
 
     public Evidence(int evidenceId, String name, String type,
                     String description, String foundAt,
-                    boolean reliable, int relatedSuspectId) {
+                    boolean reliable, int relatedSuspectId,
+                    String analysis) {
 
         this.evidenceId = evidenceId;
         this.name = name;
@@ -21,6 +23,7 @@ public class Evidence {
         this.foundAt = foundAt;
         this.reliable = reliable;
         this.relatedSuspectId = relatedSuspectId;
+        this.analysis = analysis;
     }
 
     public void displayDetails() {
@@ -32,9 +35,26 @@ public class Evidence {
         System.out.println("Description : " + description);
         System.out.println("Found At    : " + foundAt);
         System.out.println(
-                "Reliability : "
-                        + (reliable ? "Reliable" : "Questionable")
+                "Reliability : " +
+                (reliable ? "Reliable" : "Questionable")
         );
+    }
+
+    public void examine() {
+
+        System.out.println("\n----------------------------------------");
+        System.out.println("EVIDENCE EXAMINATION");
+        System.out.println("----------------------------------------");
+        System.out.println("Evidence : " + name);
+        System.out.println("Type     : " + type);
+        System.out.println("Found At : " + foundAt);
+        System.out.println("Description: " + description);
+        System.out.println(
+                "Reliability: " +
+                (reliable ? "Reliable" : "Questionable")
+        );
+        System.out.println("\nAnalysis:");
+        System.out.println(analysis);
     }
 
     public int getEvidenceId() {

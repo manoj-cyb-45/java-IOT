@@ -1,13 +1,13 @@
 package detective;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Location {
 
     private int id;
     private String name;
     private String description;
-
     private ArrayList<Evidence> evidenceList;
 
     public Location(int id, String name, String description) {
@@ -15,7 +15,6 @@ public class Location {
         this.id = id;
         this.name = name;
         this.description = description;
-
         evidenceList = new ArrayList<>();
     }
 
@@ -28,22 +27,15 @@ public class Location {
         System.out.println("\n========================================");
         System.out.println("LOCATION: " + name);
         System.out.println("========================================");
-
         System.out.println("Description: " + description);
 
         System.out.println("\nEvidence found:");
 
         if (evidenceList.isEmpty()) {
-
             System.out.println("No evidence found here.");
-
         } else {
-
             for (Evidence evidence : evidenceList) {
-
-                System.out.println(
-                        "- " + evidence.getName()
-                );
+                System.out.println("- " + evidence.getName());
             }
         }
     }
@@ -60,7 +52,7 @@ public class Location {
         return description;
     }
 
-    public ArrayList<Evidence> getEvidenceList() {
+    public List<Evidence> getEvidenceList() {
         return evidenceList;
     }
 }
