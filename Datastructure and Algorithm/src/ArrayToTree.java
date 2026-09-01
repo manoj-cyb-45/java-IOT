@@ -9,14 +9,13 @@
  *      2   3
  */
 
-
 import java.util.Scanner;
 
 // Node class represents a single element in the binary tree
 /*
 class Node {
     int val;       // Value stored in the node
-    Node left;     // Reference to the left child
+    left;     // Reference to the left child
     Node right;    // Reference to the right child
 
     // Constructor to initialize the node with a value
