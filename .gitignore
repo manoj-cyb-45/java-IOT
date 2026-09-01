@@ -6,3 +6,9 @@
 /MiniProject.iml
 /Exception and Threads.iml
 /Datastructure and Algorithm.iml
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# IntelliJ build/output
+out/
